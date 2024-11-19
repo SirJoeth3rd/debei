@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>DeBei</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <style>
+      .caveat-debei {
+	  font-family: "Caveat", cursive;
+	  font-optical-sizing: auto;
+	  font-weight: 700;
+	  font-style: normal;
+	  font-size: 150px;
+      }
+      img {
+	  width: 100%;
+	  grid-row: var(--row)/span var(--row-width);
+	  grid-column: var(--col)/span var(--col-width);
+	  text-align: center;
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+      }
+      .container {
+	  display: grid;
+	  margin: 0;
+	  padding: 0;
+	  grid-template-columns: repeat(8, 1fr);
+	  grid-template-rows: repeat(100, 50px);
+	  grid-auto-rows: minman(100px,auto);
+	  grid-template-areas:
+	      "header header"
+	      "dscrip dscrip"
+	      "dresses dresses"
+	      "dresses dresses"
+	      "footer footer";
+	  
+      }
+      header{
+	  background-image: url({{url_for('static',filename='sunglasses.jpg')}});
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  background-size: cover;
+	  grid-area: header;
+      }
+      dscrip{
+	  grid-area: dscrip;
+	  padding: 200px;
+	  background-color: turquoise;
+	  background-image: linear-gradient(turquoise, teal);
+      }
+      .dress-pic{
+	  border-radius: 25px;
+	  height: 400px;
+	  max-width: 100%;
+	  width: auto;
+	  text-align: center;
+      }
+      .dress-details p {
+	  font-family: "Caveat", cursive;
+	  font-optical-sizing: auto;
+	  font-weight: 700;
+	  font-style: normal;
+	  font-size: 1.5rem;
+      }
+      .placeholder {
+	  /*empty placeholder*/
+      }
+      .dress-left{
+	  border-radius: 25px;
+	  display: flex;
+	  flex-direction: row-reverse;
+	  align-items: center;
+	  justify-content: flex-start;
+      }
+      .dress-left .dress-pic {
+	  margin-right: 30px;
+      }
+      .dress-right{
+	  border-radius: 25px;
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  justify-content: flex-start;
+      }
+      .dress-left .dress-pic {
+	  margin-left: 30px;
+      }
+      dresses{
+	  grid-area: dresses;
+	  background-color: teal;
+	  background-image: linear-gradient(teal, midnightblue);
+	  display: grid;
+	  grid-template-columns: repeat(2,1fr);
+	  
+      }
+      footer{
+	  grid-area: footer;
+	  padding: 20px;
+	  background-color: saddlebrown;
+      }
+    </style>
+  </head>
+
+  <body style="padding:0;margin:0">
+    <div class="container">
+      <header>
+	<img class="DeBei" src={{url_for('static',filename='DeBeiTitle1L.svg')}}/>
+      </header>
+
+      <dscrip>
+	some more text here
+      </dscrip>
+
+      <dresses>
+	<div class="dress-left">
+	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	</div>
+	
+	<div class="dress-right">
+	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	  </div>
+	</div>
+	
+	<div class="dress-left">
+	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	</div>
+	
+	<div class="dress-right">
+	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	</div>
+      </dresses>
+      <footer> Footer </footer>
+    </div>
+  </body>
+</html>

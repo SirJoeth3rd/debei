@@ -21,19 +21,7 @@
 	font-weight: 700;
 	font-style: normal;
 	font-size: 30px;
-     }
-     .container {
-	 display: grid;
-	 margin: 0;
-	 padding: 0;
-	 grid-template-columns: repeat(2, 1fr);
-	 grid-template-areas:
-	     "header header"
-	     "dscrip dscrip"
-	     "dresses dresses"
-	     "dresses dresses"
-	     "footer footer";
-	 
+	color: white;
      }
      /*waves got from this code https://codepen.io/yy/pen/YaQBdW*/
      header{
@@ -55,9 +43,20 @@
 	     background-position: 1600px 130%, 3150px 130%, 5300px 130%;
 	 }
      }
-     .ocean-gradient {
-	 background-image: linear-gradient(var(--blue-surface), var(--blue-deep))
+
+     .ocean-container {
+	 background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
 	 background-size: cover;
+	 display: grid;
+	 margin: 0;
+	 padding: 0;
+	 grid-template-columns: repeat(2, 1fr);
+	 grid-template-areas:
+	     "dscrip dscrip"
+	     "dresses dresses"
+	     "dresses dresses"
+	     "footer footer";
+	 
      }
      dscrip{
 	 grid-area: dscrip;
@@ -72,7 +71,6 @@
       footer{
 	  grid-area: footer;
 	  padding: 20px;
-	  background-color: var(--blue-deep);
 	  text-align: center;
       }
      .dress-pic{
@@ -81,6 +79,9 @@
 	 max-width: 100%;
 	 width: auto;
 	 text-align: center;
+	 border-width: 3px 4px 3px 5px;
+	 border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+	 transform: rotate(2deg);
       }
      .dress-details p {
 	 font-family: "Caveat", cursive;
@@ -114,41 +115,42 @@
   </head>
 
   <body style="padding:0;margin:0">
-    <div class="container">
       <header>
 	<img class="DeBei" src={{url_for('static',filename='DeBeiTitle1L.svg')}}/>
       </header>
-
-      <dscrip>
+      
+      <div class="ocean-container">
+	<dscrip>
 	  <p class="caveat-debei">
-	      Welcome to Debei.<br/>
-	      Here you will find handcrafted swimwear made by a passionate girl who loves the beach as much you do.<br/>
-	      From the sourcing of the material to the snugness of the fit every detail in my garments has consideration<br/>
-	      Enjoy UV, Sun and Chloride protected elastics and stay good looking this holiday and the next. <br/>
-	      <br/>
-	      I always have fun making clothes, it will be my joy if you have fun wearing them. 
+	    Welcome to Debei.<br/>
+	    Here you will find handcrafted swimwear made by a passionate girl who loves the beach as much you do.<br/>
+	    From the sourcing of the material to the snugness of the fit every detail in my garments has consideration<br/>
+	    Enjoy UV, Sun and Chloride protected elastics and stay good looking this holiday and the next. <br/>
+	    <br/>
+	    I always have fun making clothes, it will be my joy if you have fun wearing them. 
 	  </p>
-      </dscrip>
-
-      <dresses>
-	<div class="dress-left">
-	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	</div>
+	</dscrip>
+	<dresses>
+	  <div class="dress-left">
+	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	  </div>
+	  
+	  <div class="dress-right">
+	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	  </div>
+	  
+	  <div class="dress-left">
+	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	  </div>
+	  
+	  <div class="dress-right">
+	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+	  </div>
+	</dresses>
 	
-	<div class="dress-right">
-	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	</div>
-	
-	<div class="dress-left">
-	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	</div>
-	
-	<div class="dress-right">
-	  <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	</div>
-      </dresses>
-    
-      <footer> Footer </footer>
-    </div>
+	<footer class="caveat-debei">
+	  Footer
+	</footer>
+      </div>
   </body>
 </html>

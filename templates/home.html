@@ -8,149 +8,245 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
     <style>
-     {% set blue_surface = '009fa9' %}
-     :root {
-	 --blue-surface: #{{blue_surface}};
-	 --blue-deep: #003e54;
-	 --sky: #9ce0ff;
-	 --morning-sun: #e7eac1;
-     }
-    .caveat-debei {
-	font-family: "Caveat", cursive;
-	font-optical-sizing: auto;
-	font-weight: 700;
-	font-style: normal;
-	font-size: 30px;
-	color: white;
-     }
-     /*waves got from this code https://codepen.io/yy/pen/YaQBdW*/
-     header{
-	 background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
-	 url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
-	 url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
-	 linear-gradient(var(--sky), var(--morning-sun));
-	 
-	 background-size: cover;
-	 grid-area: header;
-	 text-align: center;
-	 background-repeat: repeat-x;
-	 background-size: 1600px 40%, 1600px 40%, 1600px 40%, 100% 100%;
-	 background-position: 0 130%, -100px 130%, 500px 130%;
-	 animation: 30s waves linear infinite forwards;
-     }
-     @keyframes waves {
-	 to {
-	     background-position: 1600px 130%, 3150px 130%, 5300px 130%;
-	 }
-     }
+      {% set blue_surface = '009fa9' %}
+      :root {
+	  --blue-surface: #{{blue_surface}};
+	  --blue-deep: #003e54;
+	  --sky: #9ce0ff;
+	  --morning-sun: #e7eac1;
+	  --inner-border: 70px;
+      }
+      .caveat-debei {
+	  font-family: "Caveat", cursive;
+	  font-optical-sizing: auto;
+	  font-weight: 700;
+	  font-style: normal;
+	  font-size: 30px;
+	  color: white;
+      }
+      /*waves got from this code https://codepen.io/yy/pen/YaQBdW*/
+      header{
+	  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
+			    url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
+			    url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='1600' height='198'%3e%3cdefs%3e%3clinearGradient id='a' x1='50%25' x2='50%25' y1='-10.959%25' y2='100%25'%3e%3cstop stop-color='%23{{blue_surface}}' stop-opacity='.25' offset='0%25'/%3e%3cstop stop-color='%23{{blue_surface}}' offset='100%25'/%3e%3c/linearGradient%3e%3c/defs%3e%3cpath fill='url(%23a)' fill-rule='evenodd' d='M.005 121C311 121 409.898-.25 811 0c400 0 500 121 789 121v77H0s.005-48 .005-77z'/%3e%3c/svg%3e"),
+			    linear-gradient(var(--sky), var(--morning-sun));
+	  
+	  background-size: cover;
+	  grid-area: header;
+	  text-align: center;
+	  background-repeat: repeat-x;
+	  background-size: 1600px 40%, 1600px 40%, 1600px 40%, 100% 100%;
+	  background-position: 0 130%, -100px 130%, 500px 130%;
+	  animation: 30s waves linear infinite forwards;
+      }
+      @keyframes waves {
+	  to {
+	      background-position: 1600px 130%, 3150px 130%, 5300px 130%;
+	  }
+      }
 
-     .ocean-container {
-	 background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
-	 background-size: cover;
-	 display: grid;
-	 margin: 0;
-	 padding: 0;
-	 grid-template-columns: repeat(2, 1fr);
-	 grid-template-areas:
-	     "dscrip dscrip"
-	     "dresses dresses"
-	     "dresses dresses"
-	     "footer footer";
-	 
-     }
-     dscrip{
-	 grid-area: dscrip;
-	 padding: 150px;
-	 text-align: center;
-     }
+      .ocean-container {
+	  background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
+	  background-size: cover;
+	  display: grid;
+	  margin: 0;
+	  padding: 0;
+	  grid-template-columns: repeat(2, 1fr);
+	  grid-template-areas:
+	      "dscrip dscrip"
+	      "dresses dresses"
+	      "dresses dresses"
+	      "footer footer";
+	  
+      }
+      dscrip{
+	  grid-area: dscrip;
+	  padding: 70px;
+	  text-align: center;
+      }
       dresses{
 	  grid-area: dresses;
 	  display: grid;
 	  grid-template-columns: repeat(2,1fr);
       }
+      
       footer{
 	  grid-area: footer;
 	  padding: 20px;
 	  text-align: center;
       }
-     .dress-pic{
-	 border-radius: 25px;
-	 height: 400px;
-	 max-width: 100%;
-	 width: auto;
-	 text-align: center;
-	 border-width: 3px 4px 3px 5px;
-	 border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
-	 transform: rotate(2deg);
+      
+      .dress-pic{
+	  border-radius: 25px;
+	  height: 400px;
+	  max-width: 100%;
+	  width: auto;
+	  text-align: center;
+	  border-width: 3px 4px 3px 5px;
+	  border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+	  transform: rotate(2deg);
       }
-     .dress-details p {
-	 font-family: "Caveat", cursive;
-	 font-optical-sizing: auto;
-	 font-weight: 700;
-	 font-style: normal;
-	 font-size: 1.5rem;
+      
+      .dress-details p {
+	  font-family: "Caveat", cursive;
+	  font-optical-sizing: auto;
+	  font-weight: 700;
+	  font-style: normal;
+	  font-size: 1.5rem;
       }
-     .dress-left{
-	 border-radius: 25px;
-	 display: flex;
-	 flex-direction: row-reverse;
-	 align-items: center;
-	 justify-content: flex-start;
-     }
-     .dress-left .dress-pic {
-	 margin-right: 50px;
-     }
-     .dress-right{
-	 border-radius: 25px;
-	 display: flex;
-	 flex-direction: row;
-	 align-items: center;
-	 justify-content: flex-start;
-	 margin-top: 100px;
-     }
-     .dress-right .dress-pic {
-	 margin-left: 50px;
-     }
+      
+      .dress-left{
+	  border-radius: 25px;
+	  display: flex;
+	  flex-direction: row-reverse;
+	  align-items: center;
+	  justify-content: flex-start;
+      }
+      .dress-left .dress-pic {
+	  margin-right: var(--inner-border);
+      }
+      
+      .dress-right{
+	  border-radius: 25px;
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  justify-content: flex-start;
+	  margin-top: 100px;
+      }
+      .dress-right .dress-pic {
+	  margin-left: var(--inner-border);
+      }
+      
+      /*button code*/
+      .order-button {
+	  border-radius: 50%;
+	  padding: 1vw;
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  width: 3vw;
+	  height: 3vw;
+	  font-size: 2vw;
+	  outline: none;
+	  border: 5px solid white;
+	  background-color: transparent;
+	  margin: 8px;
+	  /*text in button style*/
+	  font-family: "Caveat", cursive;
+	  font-optical-sizing: auto;
+	  font-weight: 700;
+	  font-style: normal;
+	  font-size: 1.5rem;
+	  color: white;
+	  /*sets the cursor to pointer when mouse is on this*/
+	  cursor: pointer;
+      }
+      .order-button:hover{
+	  background-color: var(--blue-surface);
+      }
+      .buttons {
+	  display: flex;
+	  justify-content: center;
+	  align-items: center;
+	  flex-direction: column;
+      }
+
+      /*checkout goggles*/
+      .checkout-goggles{
+	  position: fixed;
+	  right:2em;
+	  top:0px;
+      }
+      .checkout-goggles img{
+	  width: 200px;
+	  height: 80%;
+      }
     </style>
   </head>
 
   <body style="padding:0;margin:0">
-      <header>
-	<img class="DeBei" src={{url_for('static',filename='DeBeiTitle1L.svg')}}/>
-      </header>
+
+    <div class="checkout-goggles">
+      <img src={{url_for('static',filename='goggles.svg')}}/>
+    </div>
+    
+    <header>
+      <img class="DeBei" src={{url_for('static',filename='DeBeiTitle1L.svg')}}/>
+    </header>
+    
+    <div class="ocean-container">
+      <dscrip>
+	<p class="caveat-debei">
+	  Welcome to Debei.<br/>
+	  Here you will find handcrafted swimwear made by a passionate girl who loves the beach as much you do.<br/>
+	  From the sourcing of the material to the snugness of the fit every detail in my garments has consideration<br/>
+	  Enjoy UV, Sun and Chloride protected elastics and stay good looking this holiday and the next. <br/>
+	  <br/>
+	  I always have fun making clothes, may you have fun wearing them. 
+	</p>
+      </dscrip>
       
-      <div class="ocean-container">
-	<dscrip>
-	  <p class="caveat-debei">
-	    Welcome to Debei.<br/>
-	    Here you will find handcrafted swimwear made by a passionate girl who loves the beach as much you do.<br/>
-	    From the sourcing of the material to the snugness of the fit every detail in my garments has consideration<br/>
-	    Enjoy UV, Sun and Chloride protected elastics and stay good looking this holiday and the next. <br/>
-	    <br/>
-	    I always have fun making clothes, it will be my joy if you have fun wearing them. 
-	  </p>
-	</dscrip>
-	<dresses>
-	  <div class="dress-left">
-	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
+      <dresses>
+	<div class="dress-left">
+	  <img class="dress-pic" src={{url_for('static',filename='D1.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
 	  </div>
-	  
-	  <div class="dress-right">
-	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	  </div>
-	  
-	  <div class="dress-left">
-	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	  </div>
-	  
-	  <div class="dress-right">
-	    <img class="dress-pic" src={{url_for('static',filename='dress1.jpeg')}}>
-	  </div>
-	</dresses>
+	</div>
 	
-	<footer class="caveat-debei">
-	  Footer
-	</footer>
-      </div>
+	<div class="dress-right">
+	  <img class="dress-pic" src={{url_for('static',filename='D2.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
+	  </div>
+	</div>
+	
+	<div class="dress-left">
+	  <img class="dress-pic" src={{url_for('static',filename='D3.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
+	  </div>
+	</div>
+	
+	<div class="dress-right">
+	  <img class="dress-pic" src={{url_for('static',filename='D4.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
+	  </div>
+	</div>
+
+	<div class="dress-left">
+	  <img class="dress-pic" src={{url_for('static',filename='D5.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
+	  </div>
+	</div>
+	
+	<div class="dress-right">
+	  <img class="dress-pic" src={{url_for('static',filename='D6.jpg')}}>
+	  <div class="buttons">
+	    <button class="order-button">S</button>
+	    <button class="order-button">M</button>
+	    <button class="order-button">L</button>
+	  </div>
+	</div>
+      </dresses>
+      
+      <footer class="caveat-debei">
+	Contact me, I'd love to hear from you.<br/>
+	anedupreez101@gmail.com
+      </footer>
+    </div>
   </body>
 </html>

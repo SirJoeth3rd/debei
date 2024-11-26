@@ -1,0 +1,121 @@
+.ocean-container {
+    background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
+    background-size: cover;
+    display: grid;
+    margin: 0;
+    padding: 0;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+	"dscrip dscrip"
+	"dresses dresses"
+	"dresses dresses"
+	"footer footer";
+    
+}
+dscrip{
+    grid-area: dscrip;
+    padding: 70px;
+    text-align: center;
+}
+dresses{
+    grid-area: dresses;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}
+
+footer{
+    grid-area: footer;
+    padding: 20px;
+    text-align: center;
+}
+
+.dress-pic{
+    border-radius: 25px;
+    height: 400px;
+    max-width: 100%;
+    width: auto;
+    text-align: center;
+    border-width: 3px 4px 3px 5px;
+    border-radius:95% 4% 92% 5%/4% 95% 6% 95%;
+    transform: rotate(2deg);
+}
+
+.dress-details p {
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+.dress-left{
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+}
+.dress-left .dress-pic {
+    margin-right: var(--inner-border);
+}
+
+.dress-right{
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 100px;
+}
+.dress-right .dress-pic {
+    margin-left: var(--inner-border);
+}
+
+/*button code*/
+.order-button {
+    border-radius: 50%;
+    padding: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3vw;
+    height: 3vw;
+    font-size: 2vw;
+    outline: none;
+    border: 5px solid white;
+    background-color: transparent;
+    margin: 8px;
+    /*text in button style*/
+    font-family: "Caveat", cursive;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.5rem;
+    color: white;
+    /*sets the cursor to pointer when mouse is on this*/
+    cursor: pointer;
+}
+.order-button:hover{
+    background-color: var(--blue-surface);
+}
+.order-button:active{
+    background-color: white;
+}
+			  
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/*checkout goggles*/
+.checkout-goggles{
+    position: fixed;
+    right:2em;
+    top:0px;
+}
+.checkout-goggles img{
+    width: 10rem;
+    height: 80%;
+}

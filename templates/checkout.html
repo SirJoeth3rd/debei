@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	<title>DeBei</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href={{url_for('static',filename="home.css" )}}>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<style>
+	 {% set blue_surface = '009fa9' %}
+	 :root {
+	     --blue-surface: #{{blue_surface}};
+	     --blue-deep: #003e54;
+	     --sky: #9ce0ff;
+	     --morning-sun: #e7eac1;
+	     --inner-border: 70px;
+	 }
+	 .caveat-debei {
+	     font-family: "Caveat", cursive;
+	     font-optical-sizing: auto;
+	     font-weight: 700;
+	     font-style: normal;
+	     font-size: 30px;
+	     color: white;
+	 }
+	 body {
+	     background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
+	     background-size: 100vw 100vw;
+	 }
+	</style>
+    </head>
+
+    <body>
+	<!-- iterate over the table data here -->
+	<h1 class="caveat-debei" style="text-align: center"> Checkout </h1>
+	{% for order in session['orders']%}
+	<p>{{order}}, price = {{DRESS_DETAILS[order[1]][1]}}</p>
+	{% endfor %}
+    </body>
+</html>

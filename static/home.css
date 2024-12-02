@@ -48,23 +48,22 @@ footer{
     font-size: 1.5rem;
 }
 
-.dress-left{
+.dress {
     border-radius: 25px;
     display: flex;
-    flex-direction: row-reverse;
     align-items: center;
     justify-content: flex-start;
+}
+
+.dress-left{
+    flex-direction: row-reverse;
 }
 .dress-left .dress-pic {
     margin-right: var(--inner-border);
 }
 
 .dress-right{
-    border-radius: 25px;
-    display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
     margin-top: 100px;
 }
 .dress-right .dress-pic {
@@ -110,12 +109,12 @@ footer{
 }
 
 /*checkout goggles*/
-.checkout-goggles{
+#checkout-goggles{
     position: fixed;
     right:2em;
     top:0px;
 }
-.checkout-goggles img{
+#checkout-goggles img{
     width: 10rem;
     height: 80%;
 }

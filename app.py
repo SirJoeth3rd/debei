@@ -1,10 +1,14 @@
-from flask import Flask, request, session
+from flask import Flask, request, session, redirect, jsonify
 from flask import render_template
+import requests
+
+import utilities
 
 app = Flask(__name__)
 app.secret_key = 'BAD_SECRET_KEY'
 
 # dress name, dress price
+# TODO: very good usecase for dataclasses
 DRESS_DETAILS = (
     ('dress-1', 100),
     ('dress-2', 200),
@@ -23,9 +27,44 @@ def home():
 @app.route("/checkout")
 def checkout():
     context = {
-        'DRESS_DETAILS': DRESS_DETAILS
+        'DRESS_DETAILS': DRESS_DETAILS,
+        'utilities': utilities
     }
     return render_template('checkout.html',**context)
+
+@app.route('/yoco_webhook', methods=['POST'])
+def webhook():
+    request_body = request.get_data(as_text=True)
+
+    print(request_body)
+
+    return "", 200
+
+@app.route("/yoco_checkout", methods=['POST'])
+def yoco_checkout():
+    name = request.json['name'] # use on my side
+    email = request.json['email'] # use on my side
+    amount = request.json['total']
+
+    url = "https://payments.yoco.com/api/checkouts"
+
+    header = {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer sk_test_26ec4ed84BgRWeWb5ce4e678d277'
+    }
+
+    body = {
+        "amount": amount*100,
+        "currency": "ZAR"
+    }
+
+    r = requests.post(url, headers=header, json=body)
+    print(r.json()) # this is the response body :)
+    rurl = r.json()['redirectUrl']
+
+    response = jsonify({'redirect_url': rurl})
+    response.headers.add('Content-Type', 'application/json')
+    return response
 
 @app.route("/add_to_cart/", methods=['POST'])
 def add_to_cart():

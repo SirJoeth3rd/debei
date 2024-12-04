@@ -18,7 +18,7 @@
 	     --morning-sun: #e7eac1;
 	     --inner-border: 70px;
 	 }
-	 .caveat-debei {
+	 .caveat-debei, th, tr, p, button, label, input{
 	     font-family: "Caveat", cursive;
 	     font-optical-sizing: auto;
 	     font-weight: 700;
@@ -28,9 +28,51 @@
 	 body {
 	     background-image: linear-gradient(var(--blue-surface),var(--blue-deep));
 	     background-size: 100vw 100vw;
+	     text-align: center;
 	 }
 	 h1 {
 	     font-size: 8rem;
+	 }
+
+	 table{
+	     margin-left: auto;
+	     margin-right: auto;
+	     font-size: 4rem;
+	 }
+	 th, td {
+	     padding: 1rem;
+	 }
+	 p, button{
+	     font-size: 4rem; 
+	 }
+
+	 label ,input {
+	     font-size: 2rem;
+	 }
+	 
+	 button {
+	     background-color: var(--blue-surface);
+	     border: none;
+	     color: white;
+	     padding: 10px 20px;
+	     text-align: center;
+	     text-decoration: none;
+	     display: inline-block;
+	     margin: 4px 2px;
+	     cursor: pointer;
+	     border-radius: 16px;
+	 }
+	 button:hover {
+	     background-color: var(--blue-deep);
+	 }
+
+	 input[type=text] {
+	     padding: 12px 20px;
+	     margin: 8px 0;
+	     border-radius: 5px;
+	     background-color: var(--blue-surface);
+	     outline: none;
+	     border: none;
 	 }
 	</style>
     </head>
@@ -38,8 +80,61 @@
     <body>
 	<!-- iterate over the table data here -->
 	<h1 class="caveat-debei" style="text-align: center"> Checkout </h1>
-	{% for order in session['orders']%}
-	<p>{{order}}, price = {{DRESS_DETAILS[order[1]][1]}}</p>
-	{% endfor %}
+	<table>
+	    <tr style="border-top: 2px solid white">
+		<th>Dress</th>
+		<th>Size</th>
+		<th>Price</th>
+	    </tr>
+	    {% for order in session['orders']%}
+	    <tr>
+		<td>
+		    {{DRESS_DETAILS[order[1]][0]}}
+		</td>
+		<td>
+		    {{order[0]}}
+		</td>
+		<td>
+		    R{{DRESS_DETAILS[order[1]][1]}}
+		</td>
+	    </tr>
+	    {% endfor %}
+	</table>
+	{% set total = utilities.sum_dresses_price(DRESS_DETAILS, session['orders']) %}
+	<p>Total: R{{total}}</p>
+	
+	<label for="name">Name: </label>
+	<input type="text" id="name" name="name"><br><br>
+	<label for="email">Email: </label>
+	<input type="text" id="email" name="email"><br><br>
+
+	<button id="checkout-button">Checkout</button>
     </body>
+    <script>
+     $('#checkout-button').click(function (e) {
+	 e.preventDefault();
+	 const data = {
+	     name: $('#name').text(),
+	     email: $('#email').text(),
+	     total: {{total}}
+	 };
+
+	 $.ajax({
+	     type: 'POST',
+	     url: '{{url_for('yoco_checkout')}}',
+	     data: JSON.stringify(data),
+	     contentType: 'application/json',
+	 })
+	  .done((data) => {
+	      // redirect to redirect url
+	      window.location.replace(data.redirect_url);
+	  })
+	  .fail((err) => {
+	      console.error(err);
+	  })
+	  .always(() => {
+	      console.log('always called');
+	  });
+     });
+    </script>
 </html>

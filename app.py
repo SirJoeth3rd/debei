@@ -1,11 +1,20 @@
 from flask import Flask, request, session, redirect, jsonify
 from flask import render_template
 import requests
+import sqlite3
 
 import utilities
 
-app = Flask(__name__)
-app.secret_key = 'BAD_SECRET_KEY'
+def init_db():
+    CONNECTION = sqlite3.connect('debei.sql')
+    return CONNECTION
+
+def create_app():
+    app = Flask(__name__, )
+    app.secret_key = 'BAD_SECRET_KEY'
+    return app
+
+app = create_app()
 
 # dress name, dress price
 # TODO: very good usecase for dataclasses
@@ -22,7 +31,17 @@ DRESS_DETAILS = (
 def home():
     # this is a good place to init things on the session
     session.clear()
-    return render_template('home.html')
+
+    # do a test query here
+    db = init_db()
+    cur = db.cursor()
+    res = cur.execute("SELECT * FROM Items")
+
+    context = {
+        'dresses': res.fetchall()
+    }
+    
+    return render_template('home.html',**context)
 
 @app.route("/checkout")
 def checkout():

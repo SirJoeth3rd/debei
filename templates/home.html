@@ -74,61 +74,21 @@
 		    I always have fun making clothes, may you have fun wearing them. 
 		</p>
 	    </dscrip>
-	    
-	    <dresses>
-		<div class="dress dress-left" id="dress-1">
-		    <img class="dress-pic" src={{url_for('static',filename='D1.jpg')}}>
-		    <div class="buttons">
-			<button class="order-button">S</button>
-			<button class="order-button">M</button>
-			<button class="order-button">L</button>
-		    </div>
-		</div>
-		
-		<div class="dress dress-right" id="dress-2">
-		    <img class="dress-pic" src={{url_for('static',filename='D2.jpg')}}>
-		    <div class="buttons">
-			<button class="order-button">S</button>
-			<button class="order-button">M</button>
-			<button class="order-button">L</button>
-		    </div>
-		</div>
-		
-		<div class="dress dress-left" id="dress-3">
-		    <img class="dress-pic" src={{url_for('static',filename='D3.jpg')}}>
-		    <div class="buttons">
-			<button class="order-button">S</button>
-			<button class="order-button">M</button>
-			<button class="order-button">L</button>
-		    </div>
-		</div>
-		
-		<div class="dress dress-right" id="dress-4">
-		    <img class="dress-pic" src={{url_for('static',filename='D4.jpg')}}>
-		    <div class="buttons">
-			<button class="order-button">S</button>
-			<button class="order-button">M</button>
-			<button class="order-button">L</button>
-		    </div>
-		</div>
 
-		<div class="dress dress-left" id="dress-5">
-		    <img class="dress-pic" src={{url_for('static',filename='D5.jpg')}}>
+	    <dresses>
+		{% for dress_q in dresses %}
+		{% set dress_layout = 'dress-left' if loop.index % 2 == 1 else 'dress-right' %}
+		<div class="dress {{dress_layout}}" id="{{dress_q[1]}}">
+		    <div>
+			<img class="dress-pic" src={{url_for('static',filename=("%s.jpg" % dress_q[1]) )}}/>
+		    </div>
 		    <div class="buttons">
 			<button class="order-button">S</button>
 			<button class="order-button">M</button>
 			<button class="order-button">L</button>
 		    </div>
 		</div>
-		
-		<div class="dress dress-right" id="dress-6">
-		    <img class="dress-pic" src={{url_for('static',filename='D6.jpg')}}>
-		    <div class="buttons">
-			<button class="order-button">S</button>
-			<button class="order-button">M</button>
-			<button class="order-button">L</button>
-		    </div>
-		</div>
+		{% endfor %}
 	    </dresses>
 	    
 	    <footer class="caveat-debei">

@@ -16,17 +16,6 @@ def create_app():
 
 app = create_app()
 
-# dress name, dress price
-# TODO: very good usecase for dataclasses
-DRESS_DETAILS = (
-    ('dress-1', 100),
-    ('dress-2', 200),
-    ('dress-3', 300),
-    ('dress-4', 200),
-    ('dress-5', 300),
-    ('dress-6', 500)
-)
-
 @app.route("/")
 def home():
     # this is a good place to init things on the session
@@ -46,7 +35,6 @@ def home():
 @app.route("/checkout")
 def checkout():
     context = {
-        'DRESS_DETAILS': DRESS_DETAILS,
         'utilities': utilities
     }
     return render_template('checkout.html',**context)
@@ -109,6 +97,5 @@ def add_to_cart():
         session['orders'] = curr
     else:
         session['orders'] = [(size,index)]
-
-    print(f"ORDERS = {session}")
+        
     return ('none')

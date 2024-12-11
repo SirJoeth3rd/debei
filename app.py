@@ -9,6 +9,8 @@ import utilities
 
 JWT_PASSWORD = "@pparently_a_very_d^b_sec5t_k55"
 
+# TODO: Idempotency requirement
+
 @contextmanager
 def get_db():
     connection = sqlite3.connect('debei.db')

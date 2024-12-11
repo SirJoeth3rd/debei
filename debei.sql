@@ -7,12 +7,19 @@ CREATE TABLE Items (
 
 CREATE TABLE Orders (
   order_nbr INTEGER PRIMARY KEY,
-  item INTEGER,
-  name TEXT,
-  email TEXT,
-  fulfilled BIT,
-  marketer TEXT,
-  FOREIGN KEY (item) REFERENCES Items(item_nbr)
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  marketer TEXT DEFAULT '',
+  createtime DATETIME DEFAULT CURRENT_TIMESTAMP,
+  status TEXT CHECK(status IN ('new','matched','cancelled','done')) DEFAULT 'new'
+);
+
+-- many to many between orders and items
+CREATE TABLE OrderItems (
+  order_item_nbr INTEGER PRIMARY KEY,
+  item_nbr INTEGER REFERENCES Items(item_nbr),
+  order_nbr INTEGER REFERENCES Orders(order_nbr),
+  item_size TEXT CHECK(item_size IN ('S','M','L'))
 );
 
 -- Populate Items

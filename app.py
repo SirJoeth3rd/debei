@@ -1,13 +1,20 @@
-from flask import Flask, request, session, redirect, jsonify
+from flask import Flask, request, session, redirect, jsonify, url_for
 from flask import render_template
 import requests
 import sqlite3
+from contextlib import contextmanager
+import jwt
 
 import utilities
 
-def init_db():
-    CONNECTION = sqlite3.connect('debei.sql')
-    return CONNECTION
+JWT_PASSWORD = "@pparently_a_very_d^b_sec5t_k55"
+
+@contextmanager
+def get_db():
+    connection = sqlite3.connect('debei.db')
+    yield connection.cursor()
+    connection.commit()
+    connection.close()
 
 def create_app():
     app = Flask(__name__, )
@@ -21,16 +28,15 @@ def home():
     # this is a good place to init things on the session
     session.clear()
 
-    # do a test query here
-    db = init_db()
-    cur = db.cursor()
-    res = cur.execute("SELECT * FROM Items")
+    with get_db() as db:
+        res = db.execute("select * from Items").fetchall()
 
     context = {
-        'dresses': res.fetchall()
+        'dresses': res
     }
     
     return render_template('home.html',**context)
+
 
 @app.route("/checkout")
 def checkout():
@@ -39,19 +45,46 @@ def checkout():
     }
     return render_template('checkout.html',**context)
 
-@app.route('/yoco_webhook', methods=['POST'])
-def webhook():
-    request_body = request.get_data(as_text=True)
+@app.route("/thank_you/<order_jwt>")
+def thank_you(order_jwt):
+    # TODO check if the payment was a success and set it on the order
+    with get_db() as cur:
+        query = "select * from Orders where order_nbr = ?"
+        try:
+            jwt_dict = jwt.decode(order_jwt, JWT_PASSWORD, ["HS256"])
+            order_nbr = jwt_dict['order_nbr']
+        except jwt.InvalidSignatureError:
+            # some hacky stuff here
+            return redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        
+        order = cur.execute(query, (order_nbr,)).fetchone()
+        if order:
+            print('Order placed succesfully!')
+            query = "update Orders set status = 'matched' where order_nbr = ?"
+            cur.execute(query, (order_nbr,))
 
-    print(request_body)
-
-    return "", 200
+            return "thank you your order has been placed"
+    
+    return "order failed to place, if this was unintentional please contact us"
 
 @app.route("/yoco_checkout", methods=['POST'])
 def yoco_checkout():
     name = request.json['name'] # use on my side
     email = request.json['email'] # use on my side
-    amount = request.json['total']
+    order_items = session['orders']
+    total = utilities.sum_dresses_price(order_items)
+
+    with get_db() as cur:
+        # create the order
+        query = "insert into Orders (name, email) values (?,?)"
+        print(f'ORDER QUERY VALUES: {(name, email)}')
+        res = cur.execute(query, (name, email))
+        order_nbr = res.lastrowid
+
+        # now link the orders with the items
+        query = "insert into OrderItems (item_nbr, order_nbr, item_size) values (?,?,?)"
+        for item in order_items:
+            cur.execute(query, (item[1], order_nbr, item[0]))
 
     url = "https://payments.yoco.com/api/checkouts"
 
@@ -60,9 +93,17 @@ def yoco_checkout():
         'Authorization': 'Bearer sk_test_26ec4ed84BgRWeWb5ce4e678d277'
     }
 
+    order_jwt = jwt.encode({'order_nbr': order_nbr}, JWT_PASSWORD, algorithm="HS256")
+    
+    session['order'] = order_jwt
+
     body = {
-        "amount": amount*100,
-        "currency": "ZAR"
+        "amount": total,
+        "currency": "ZAR",
+        "successUrl": f"http://localhost:5000/thank_you/{order_jwt}", # TODO: add order-id as variable, remember to encrypt
+        "metadata": {
+            "order_nbr": order_nbr # don't have to encode this (I hope)
+        }
     }
 
     r = requests.post(url, headers=header, json=body)
@@ -77,25 +118,20 @@ def yoco_checkout():
 def add_to_cart():
     size = request.json['size']
     id = request.json['id']
-    index = 0
+
+    with get_db() as dbcur:
+        query = "select * from Items where name=?"
+        dress_info = dbcur.execute(query, (id,)).fetchone()
 
     if not size in ('S','M','L'):
         print('unknown size')
         return ('none')
-    
-    for i in range(len(DRESS_DETAILS)):
-        dress = DRESS_DETAILS[i]
-        if dress[0] == id:
-            index = i
-            break
-    else:        
-        return ('none') # did not find id in DRESS_DETAILS
 
     if 'orders' in session:
         curr = session['orders'].copy() # performance be damned
-        curr.append((size,index))
+        curr.append((size,) + dress_info)
         session['orders'] = curr
     else:
-        session['orders'] = [(size,index)]
+        session['orders'] = [(size,) + dress_info]
         
     return ('none')

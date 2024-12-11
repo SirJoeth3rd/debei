@@ -86,38 +86,41 @@
 		<th>Size</th>
 		<th>Price</th>
 	    </tr>
+	    {% set SIZE, ID, DETAILS, NAME, PRICE = 0,1,2,3,4 %}
 	    {% for order in session['orders']%}
 	    <tr>
 		<td>
-		    {{DRESS_DETAILS[order[1]][0]}}
+		    {{order[NAME]}}
 		</td>
 		<td>
-		    {{order[0]}}
+		    {{order[SIZE]}}
 		</td>
 		<td>
-		    R{{DRESS_DETAILS[order[1]][1]}}
+		    R{{order[PRICE]/100}}
 		</td>
 	    </tr>
 	    {% endfor %}
 	</table>
-	{% set total = utilities.sum_dresses_price(DRESS_DETAILS, session['orders']) %}
-	<p>Total: R{{total}}</p>
+	{% set total = utilities.sum_dresses_price(session['orders']) %}
+	<p>Total: R{{total/100}}</p>
 	
 	<label for="name">Name: </label>
-	<input type="text" id="name" name="name"><br><br>
+	<input type="text" id="name" name="name"><br/><br/>
 	<label for="email">Email: </label>
-	<input type="text" id="email" name="email"><br><br>
+	<input type="text" id="email" name="email"><br/><br/>
 
 	<button id="checkout-button">Checkout</button>
     </body>
     <script>
      $('#checkout-button').click(function (e) {
 	 e.preventDefault();
+	 // only name and email needed, get items from session
 	 const data = {
-	     name: $('#name').text(),
-	     email: $('#email').text(),
-	     total: {{total}}
+	     name: $('#name').val(),
+	     email: $('#email').val(),
 	 };
+
+	 console.log(data);
 
 	 $.ajax({
 	     type: 'POST',

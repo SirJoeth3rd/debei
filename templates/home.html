@@ -76,12 +76,13 @@
 	    </dscrip>
 
 	    <dresses>
+		{% set INDEX, DETAILS, NAME, PRICE = 0,1,2,3%}
 		{% for dress_q in dresses %}
 		{% set dress_layout = 'dress-left' if loop.index % 2 == 1 else 'dress-right' %}
-		<div class="dress {{dress_layout}}" id="{{dress_q[1]}}">
+		<div class="dress {{dress_layout}}" id="{{dress_q[NAME]}}">
 		    <div>
-			<img class="dress-pic" src={{url_for('static',filename=("%s.jpg" % dress_q[1]) )}}/>
-			<p class="caveat-debei" style="text-align:center">R{{dress_q[2]/100}}</p>
+			<img class="dress-pic" src={{url_for('static',filename=("%s.jpg" % dress_q[NAME]) )}}/>
+			<p class="caveat-debei" style="text-align:center">R{{dress_q[PRICE]/100}}</p>
 		    </div>
 		    <div class="buttons">
 			<button class="order-button">S</button>

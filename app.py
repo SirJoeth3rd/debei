@@ -28,7 +28,10 @@ app = create_app()
 @app.route("/")
 def home():
     # this is a good place to init things on the session
+    marketer = session.get('marketer',None)
     session.clear()
+    if marketer:
+        session['marketer'] = marketer
 
     with get_db() as db:
         res = db.execute("select * from Items").fetchall()
@@ -39,6 +42,10 @@ def home():
     
     return render_template('home.html',**context)
 
+@app.route("/<name>")
+def home_with_name(name):
+    session['marketer'] = name
+    return redirect('/')
 
 @app.route("/checkout")
 def checkout():
@@ -77,10 +84,13 @@ def yoco_checkout():
     total = utilities.sum_dresses_price(order_items)
 
     with get_db() as cur:
-        # create the order
-        query = "insert into Orders (name, email) values (?,?)"
-        print(f'ORDER QUERY VALUES: {(name, email)}')
-        res = cur.execute(query, (name, email))
+        #create the order
+        if session['marketer']:
+            query = "insert into Orders (name, email, marketer) values (?,?,?)"
+            res = cur.execute(query, (name, email, session['marketer'])) # potential security thing here?
+        else:
+            query = "insert into Orders (name, email) values (?,?)"
+            res = cur.execute(query, (name, email))
         order_nbr = res.lastrowid
 
         # now link the orders with the items

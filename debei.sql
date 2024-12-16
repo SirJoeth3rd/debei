@@ -9,6 +9,7 @@ CREATE TABLE ItemColors (
   item_nbr INTEGER NOT NULL REFERENCES Items(item_nbr),
   color_nbr INTEGER NOT NULL REFERENCES Colors(color_nbr)
 );
+
 CREATE TABLE Colors (
   color_nbr INTEGER PRIMARY KEY,
   name TEXT,
@@ -35,9 +36,13 @@ CREATE TABLE OrderItems (
 
 -- Populate Items
 
+-- tanga,bikini = blue,pink
+-- slip,triangle = blue,black
+-- one_piece,one_shoulder_top,slip = zebra
+
 INSERT INTO Colors (name, price_modifier)
   VALUES
-    ('blue', 0),('pink', 0),('zebra', 0);
+    ('blue', 0),('pink', 0),('zebra', 0), ('black', 0);
 
 INSERT INTO Items (description, name, price)
   VALUES
@@ -47,3 +52,18 @@ INSERT INTO Items (description, name, price)
   ('a waterfall of shimmering skin','triangle_top', 30000),
   ('beauty in the eyes of all beholders','one_piece', 60000),
   ('a rising crescent moon', 'one_shoulder_top', 40000);
+
+INSERT INTO ItemColors (item_nbr, color_nbr)
+SELECT i.item_nbr,c.color_nbr
+FROM Items i,Colors c
+WHERE i.name IN ('tanga','bikini') AND c.name IN ('pink','blue');
+
+INSERT INTO ItemColors (item_nbr, color_nbr)
+SELECT i.item_nbr,c.color_nbr
+FROM Items i,Colors c
+WHERE i.name IN ('slip','triangle_top') AND c.name IN ('black','blue');
+
+INSERT INTO ItemColors (item_nbr, color_nbr)
+SELECT i.item_nbr,c.color_nbr
+FROM Items i,Colors c
+WHERE i.name IN ('one_shoulder_top','one_piece','slip') AND c.name IN ('zebra');
